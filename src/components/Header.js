@@ -10,11 +10,15 @@ export default function Header() {
     <>
       <header className="header">
         <div className="container">
-          <div className="header-content">
+          {/* Logo section - centered at top */}
+          <div className="header-logo">
             <a href="/" className="logo">
               LOGO
             </a>
-            
+          </div>
+          
+          {/* Navigation and actions section */}
+          <div className="header-content">
             <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
               <a href="/shop">SHOP</a>
               <a href="/skills">SKILLS</a>
