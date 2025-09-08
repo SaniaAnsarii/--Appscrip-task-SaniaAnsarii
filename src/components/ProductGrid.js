@@ -40,7 +40,7 @@ export default function ProductGrid({ products, loading }) {
           <div className="product-image-container">
             <img 
               src={product.image} 
-              alt={`${product.name} - Premium lifestyle product from mettä muse`}
+              alt={`${product.name} - Premium lifestyle product from appscrip`}
               className="product-image"
               loading="lazy"
             />
