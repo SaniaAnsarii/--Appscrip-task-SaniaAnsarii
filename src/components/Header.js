@@ -10,22 +10,25 @@ export default function Header() {
     <>
       <header className="header">
         <div className="container">
-          {/* Logo section - centered at top */}
-          <div className="header-logo">
+          {/* Top row: Logo and actions */}
+          <div className="header-top">
             <a href="/" className="logo">
               LOGO
             </a>
-          </div>
-          
-          {/* Navigation and actions section */}
-          <div className="header-content">
-            <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
-              <a href="/shop">SHOP</a>
-              <a href="/skills">SKILLS</a>
-              <a href="/stories">STORIES</a>
-              <a href="/about">ABOUT</a>
-              <a href="/contact">CONTACT US</a>
-            </nav>
+            
+            {/* Left spacer for mobile menu toggle */}
+            <div className="header-left">
+              <button 
+                className="mobile-menu-toggle"
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+              >
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              </button>
+            </div>
             
             <div className="header-actions">
               <svg className="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,19 +47,24 @@ export default function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 7a2 2 0 01-2 2H8a2 2 0 01-2-2L5 9z" />
               </svg>
               
-              <button className="language-selector">ENG</button>
+              <button className="language-selector">
+                ENG
+                <svg className="dropdown-arrow" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
             </div>
-            
-            <button 
-              className="mobile-menu-toggle"
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-            >
-              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-            </button>
+          </div>
+          
+          {/* Bottom row: Navigation */}
+          <div className="header-nav">
+            <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
+              <a href="/shop">SHOP</a>
+              <a href="/skills">SKILLS</a>
+              <a href="/stories">STORIES</a>
+              <a href="/about">ABOUT</a>
+              <a href="/contact">CONTACT US</a>
+            </nav>
           </div>
         </div>
       </header>
