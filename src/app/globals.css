@@ -65,6 +65,12 @@ body {
   gap: 1rem;
 }
 
+.header-actions-desktop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .header-nav {
   display: flex;
   justify-content: center;
@@ -75,6 +81,8 @@ body {
   display: flex;
   gap: 2rem;
   list-style: none;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .nav a {
@@ -580,6 +588,28 @@ body {
   font-size: 0.9rem;
 }
 
+/* Tablet and smaller desktop styles */
+@media (max-width: 1024px) {
+  .nav {
+    gap: 1.5rem;
+  }
+  
+  .nav a {
+    font-size: 0.9rem;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 900px) {
+  .nav {
+    gap: 1rem;
+  }
+  
+  .nav a {
+    font-size: 0.85rem;
+  }
+}
+
 /* Mobile-specific styles */
 @media (max-width: 768px) {
   .container {
@@ -612,15 +642,23 @@ body {
   }
   
   .header-nav {
-    padding: 0.75rem 0;
+    display: none;
   }
   
-  .nav {
-    display: none;
+  .mobile-breadcrumb {
+    display: block;
+  }
+  
+  .mobile-filter-bar {
+    display: flex;
   }
   
   .header-actions {
     gap: 1rem;
+  }
+  
+  .header-actions-desktop {
+    display: none;
   }
   
   .search-icon, .wishlist-icon, .user-icon, .cart-icon {
@@ -641,16 +679,6 @@ body {
     padding: 0.5rem;
   }
   
-  /* Mobile breadcrumb */
-  .mobile-breadcrumb {
-    display: block;
-    background-color: #f9fafb;
-    color: #333;
-    padding: 0.5rem 0;
-    font-size: 0.875rem;
-    text-align: center;
-    border-bottom: 1px solid #e5e7eb;
-  }
   
   /* Hero section mobile - keep white theme */
   .hero {
@@ -694,18 +722,6 @@ body {
     display: block;
   }
   
-  /* Mobile filter/sort bar */
-  .mobile-filter-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 16px;
-    background-color: #fff;
-    border-bottom: 1px solid #e5e7eb;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
   
   .mobile-filter-button {
     background: none;
@@ -998,6 +1014,12 @@ body {
 /* Mobile breadcrumb - hidden by default */
 .mobile-breadcrumb {
   display: none;
+  background-color: #f9fafb;
+  color: #333;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 /* Mobile filter bar - hidden by default */
