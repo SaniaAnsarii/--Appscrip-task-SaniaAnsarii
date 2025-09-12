@@ -7,116 +7,23 @@ import ProductGrid from './ProductGrid'
 export default function ProductListing({ initialProducts = [] }) {
   const [products, setProducts] = useState(initialProducts)
   const [filteredProducts, setFilteredProducts] = useState(initialProducts)
-  const [loading, setLoading] = useState(false)
   const [sortBy, setSortBy] = useState('recommended')
   const [showSortOptions, setShowSortOptions] = useState(false)
 
   useEffect(() => {
-    if (initialProducts.length === 0) {
-      fetchProducts()
-    }
-  }, [initialProducts.length])
-
-  useEffect(() => {
-    applyFilters()
+    applyFilters(products, sortBy)
   }, [products, sortBy])
 
-  const fetchProducts = async () => {
-    try {
-      setLoading(true)
-      const response = await fetch('https://fakestoreapi.com/products?limit=12')
-      const data = await response.json()
-      
-      // Transform the data to match our design
-      const transformedProducts = data.map(product => ({
-        id: product.id,
-        name: product.title,
-        image: product.image,
-        price: product.price,
-        category: product.category,
-        description: product.description,
-        inStock: Math.random() > 0.2 // Randomly set some as out of stock
-      }))
-      
-      setProducts(transformedProducts)
-      setFilteredProducts(transformedProducts)
-    } catch (error) {
-      console.error('Error fetching products:', error)
-      // Fallback to mock data if API fails
-      setProducts(getMockProducts())
-      setFilteredProducts(getMockProducts())
-    } finally {
-      setLoading(false)
-    }
-  }
+  const applyFilters = (items, sortKey) => {
+    let filtered = [...items]
 
-  const getMockProducts = () => [
-    {
-      id: 1,
-      name: 'Premium Backpack',
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop',
-      price: 89.99,
-      category: 'bags',
-      description: 'High-quality backpack for everyday use',
-      inStock: true
-    },
-    {
-      id: 2,
-      name: 'Designer Handbag',
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop',
-      price: 149.99,
-      category: 'bags',
-      description: 'Elegant handbag for special occasions',
-      inStock: false
-    },
-    {
-      id: 3,
-      name: 'Leather Wallet',
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop',
-      price: 59.99,
-      category: 'accessories',
-      description: 'Genuine leather wallet',
-      inStock: true
-    },
-    {
-      id: 4,
-      name: 'Canvas Tote',
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop',
-      price: 39.99,
-      category: 'bags',
-      description: 'Eco-friendly canvas tote bag',
-      inStock: true
-    },
-    {
-      id: 5,
-      name: 'Baseball Cap',
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop',
-      price: 29.99,
-      category: 'accessories',
-      description: 'Comfortable baseball cap',
-      inStock: true
-    },
-    {
-      id: 6,
-      name: 'Travel Duffel',
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop',
-      price: 79.99,
-      category: 'bags',
-      description: 'Spacious travel duffel bag',
-      inStock: true
-    }
-  ]
-
-  const applyFilters = () => {
-    let filtered = [...products]
-
-    // Apply sorting
-    switch (sortBy) {
+    switch (sortKey) {
       case 'newest':
         filtered.sort((a, b) => b.id - a.id)
         break
       case 'popular':
-        filtered.sort((a, b) => Math.random() - 0.5) // Random for demo
+        // Using random for demo, replace with rating/popularity if available
+        filtered.sort(() => Math.random() - 0.5)
         break
       case 'price-high':
         filtered.sort((a, b) => b.price - a.price)
@@ -125,7 +32,6 @@ export default function ProductListing({ initialProducts = [] }) {
         filtered.sort((a, b) => a.price - b.price)
         break
       default:
-        // Keep original order for 'recommended'
         break
     }
 
@@ -149,7 +55,7 @@ export default function ProductListing({ initialProducts = [] }) {
 
   return (
     <div className="container">
-        <div className="main-content">
+      <div className="main-content">
         <FilterPanel 
           totalItems={products.length}
           onFilterChange={setFilteredProducts}
@@ -198,10 +104,7 @@ export default function ProductListing({ initialProducts = [] }) {
             </div>
           </div>
           
-          <ProductGrid 
-            products={filteredProducts} 
-            loading={loading}
-          />
+          <ProductGrid products={filteredProducts} />
         </div>
       </div>
     </div>
